@@ -9,9 +9,11 @@ on:
       - dev
 env:
   TF_LOG: TRACE, DEBUG, INFO, WARN, ERROR
-  working-directory: 'terraform'
 jobs:
   terraform:
+    defaults:
+      run:
+        working-directory: ./terraform
     permissions:
       id-token: write
       issues: write
@@ -67,32 +69,26 @@ jobs:
 
       - name: List Directory
         run: ls -la
-        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ${{ env.WORKING_DIRECTORY }}
         env:
           TF_VAR_storage_account_name: ${{ secrets.STORAGE_ACCOUNT_NAME }}
           TF_VAR_resource_group_name: ${{ secrets.AZURE_RESOURCE_GROUP }}
 
       - name: Terraform Format
         run: terraform fmt -check
-        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Validate
         run: terraform validate
-        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -out=tfplan -no-color
-        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -file=tfplan -no-color -auto-approve
-        working-directory: ${{ env.WORKING_DIRECTORY }}
         env:
           TF_VAR_storage_account_name: ${{ secrets.STORAGE_ACCOUNT_NAME }}
           TF_VAR_resource_group_name: ${{ secrets.AZURE_RESOURCE_GROUP }}
