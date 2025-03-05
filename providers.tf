@@ -1,4 +1,10 @@
 terraform {
+  backend "azurerm" {
+    resource_group_name  = var.azure_resource_group
+    storage_account_name = var.azure_storage_account
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
+  }
   required_version = ">= 1.0.0"
   required_providers {
     azurerm = {
