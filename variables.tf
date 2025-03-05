@@ -30,11 +30,6 @@ default     = "oidc"
 
 # Resource Group Variables
 variable "resource_group_name" {
-description = "The name of the resource group to create (will be auto-generated if not specified)"
-type        = string
-default     = null
-}
-variable "resource_group_name" {
 description = "The name of the resource group to create"
 type        = string
 default     = "rg-oidc-demo"
@@ -64,18 +59,13 @@ type        = string
 default     = "owner/repo-name"
 }
 
-variable "github_branch" {
-description = "The GitHub branch to grant access to"
-type        = string
-default     = "main"
-}
+# variable "github_branch" {
+# description = "The GitHub branch to grant access to"
+# type        = string
+# default     = "main"
+# }
 
 # Azure AD Application Variables
-variable "application_name" {
-description = "The name of the Azure AD application for OIDC (will be auto-generated if not specified)"
-type        = string
-default     = null
-}
 variable "application_name" {
 description = "The name of the Azure AD application for OIDC"
 type        = string
