@@ -3,12 +3,14 @@ variable "subscription_id" {
   description = "The Subscription ID which should be used"
   type        = string
   sensitive   = true
+  default     = ""
 }
 
 variable "tenant_id" {
   description = "The Tenant ID which should be used"
   type        = string
   sensitive   = true
+  default     = ""
 }
 
 # Environment and Project Variables
@@ -61,6 +63,7 @@ variable "tags" {
 variable "github_repository" {
   description = "The GitHub repository to grant access to"
   type        = string
+  default     = ""
 }
 
 # variable "github_branch" {
