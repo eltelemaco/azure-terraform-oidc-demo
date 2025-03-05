@@ -1,0 +1,27 @@
+name: Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: string
+        description: 'The name for the person'
+        required: true
+        default: 'Antonio'
+
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: |
+          echo "name is ${{ inputs.name }}"
+
+      - run: |
+          echo "Hi there ${{ inputs.name }}"
+        if: inputs.name == 'Antonio'
+
+      - run: |
+          echo "Also hi there ${{ inputs.name }}"
+        if: contains(inputs.name, 'test') && contains(inputs.name, 'Colin')

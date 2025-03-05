@@ -35,6 +35,11 @@ variable "resource_group_name" {
   default     = "rg-oidc-demo"
 }
 
+variable "storage_account_name" {
+    description = "The name of the storage account to create"
+    type        = string
+    default     = "storageterraformoidc"
+}
 variable "location" {
   description = "The Azure Region where the resource group should be created"
   type        = string
