@@ -64,7 +64,10 @@ jobs:
                 az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
                 az configure --defaults group=${{ secrets.AZURE_RESOURCE_GROUP }} location=${{ secrets.AZURE_LOCATION }}
                 az account show --output table
-                get-childitem env: | sort-object name              
+
+      - name: List Directory
+        run: ls -la
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Init
         run: terraform init
