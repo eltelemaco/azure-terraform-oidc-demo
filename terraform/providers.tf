@@ -8,8 +8,8 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = var.resource_group_name
-    storage_account_name = "stoidcdemo"
+    resource_group_name  = "rg-oidc-demo"
+    storage_account_name = "storageterraformoidc"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
   }
