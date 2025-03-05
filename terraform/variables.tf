@@ -71,11 +71,4 @@ variable "application_name" {
   type        = string
   default     = "github-actions-oidc"
 }
-variable "azure_resource_group" {
-  description = "The name of the Azure resource group where the Azure AD application will be created"
-  type        = string
-}
-variable "azure_storage_account" {
-  description = " The name of the storage account to use for the Terraform state file"
-  type        = string
-}
+

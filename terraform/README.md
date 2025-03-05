@@ -15,7 +15,7 @@ This project sets up:
 
 ## Prerequisites
 
-- Azure subscription
+- Azure subscription 
 - GitHub account
 - Azure CLI installed locally
 - Terraform CLI installed locally
