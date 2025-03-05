@@ -56,7 +56,6 @@ variable "tags" {
 variable "github_repository" {
   description = "The GitHub repository to grant access to"
   type        = string
-  default     = "owner/repo-name"
 }
 
 # variable "github_branch" {

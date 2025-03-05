@@ -76,6 +76,9 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check
         working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          TF_VAR_storage_account_name: ${{ secrets.STORAGE_ACCOUNT_NAME }}
+          TF_VAR_resource_group_name: ${{ secrets.AZURE_RESOURCE_GROUP }}
 
       - name: Terraform Validate
         run: terraform validate
@@ -85,8 +88,14 @@ jobs:
         id: plan
         run: terraform plan -out=tfplan -no-color
         working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          TF_VAR_storage_account_name: ${{ secrets.STORAGE_ACCOUNT_NAME }}
+          TF_VAR_resource_group_name: ${{ secrets.AZURE_RESOURCE_GROUP }}
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -file=tfplan -no-color -auto-approve
         working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          TF_VAR_storage_account_name: ${{ secrets.STORAGE_ACCOUNT_NAME }}
+          TF_VAR_resource_group_name: ${{ secrets.AZURE_RESOURCE_GROUP }}
