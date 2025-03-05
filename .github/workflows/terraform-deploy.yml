@@ -14,6 +14,7 @@ permissions:
 
 jobs:
   terraform:
+    environment: dev
     name: 'Terraform Deploy'
     runs-on: ubuntu-latest
     
