@@ -8,7 +8,7 @@ on:
       - main
       - dev
 env:
-  TF_LOG: TRACE, DEBUG, INFO, WARN, ERROR
+  TF_LOG: DEBUG
   tf_actions_working_dir: ./terraform
   ARM_STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT_NAME }}
   ARM_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
