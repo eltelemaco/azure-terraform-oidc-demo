@@ -8,7 +8,7 @@ on:
       - main
       - dev
 env:
-  TF_LOG: DEBUG
+  TF_LOG: INFO DEBUG ERROR
 jobs:
   terraform:
     permissions:
