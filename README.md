@@ -1,10 +1,13 @@
 # Azure Terraform OIDC Demo
 
-This repository demonstrates how to deploy Azure resources using Terraform and GitHub Actions with OpenID Connect (OIDC) authentication. OIDC provides a more secure way to authenticate with Azure without storing long-lived credentials in GitHub secrets.
+This repository demonstrates how to deploy Azure resources using Terraform and GitHub Actions with OpenID Connect (OIDC)
+authentication. OIDC provides a more secure way to authenticate with Azure without storing long-lived credentials in
+GitHub secrets.
 
-## Overview 
+## Overview
 
 This project sets up:
+
 - Azure Active Directory application and service principal
 - OIDC federation between GitHub Actions and Azure
 - Terraform configuration to deploy an Azure resource group
@@ -40,8 +43,9 @@ az ad sp create-for-rbac --name "github-actions-oidc-sp" --role contributor --sc
 ```
 
 Save the output JSON - you'll need these values later:
+
 - `clientId`
-- `clientSecret` 
+- `clientSecret`
 - `tenantId`
 - `subscriptionId`
 
@@ -84,9 +88,11 @@ cd azure-terraform-oidc-demo
 Navigate to your GitHub repository → Settings → Secrets and variables → Actions
 
 Add the following repository secrets:
+
 - None required! (That's the benefit of OIDC)
 
 Add the following repository variables:
+
 - `AZURE_CLIENT_ID`: The Client ID of your App Registration
 - `AZURE_TENANT_ID`: Your Azure tenant ID
 - `AZURE_SUBSCRIPTION_ID`: Your Azure subscription ID
@@ -96,11 +102,13 @@ Add the following repository variables:
 
 1. Push changes to your repository's main branch to trigger the workflow automatically
 2. Alternatively, manually trigger the workflow:
+
 - Go to the "Actions" tab in your GitHub repository
 - Select the "Terraform Deploy" workflow
 - Click "Run workflow" and select the branch to run from
 
 The workflow will:
+
 1. Authenticate to Azure using OIDC
 2. Initialize Terraform
 3. Create a Terraform plan
@@ -131,13 +139,15 @@ azure-terraform-oidc-demo/
 
 ## Customizing the Deployment
 
-To deploy additional Azure resources, modify the `main.tf` file to include your desired resources. Remember to update the `variables.tf` file if you need additional variables.
+To deploy additional Azure resources, modify the `main.tf` file to include your desired resources. Remember to update
+the `variables.tf` file if you need additional variables.
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Authentication Failure**: Ensure your App Registration has the correct permissions and the federated credential is configured properly.
+1. **Authentication Failure**: Ensure your App Registration has the correct permissions and the federated credential is
+   configured properly.
 
 2. **Missing Variables**: Check that all required GitHub variables are set correctly.
 

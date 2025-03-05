@@ -17,7 +17,7 @@ variable "environment" {
   type        = string
   default     = "dev"
   validation {
-    condition     = contains(["dev", "test", "stage", "prod"], var.environment)
+    condition = contains(["dev", "test", "stage", "prod"], var.environment)
     error_message = "The environment must be one of: dev, test, stage, prod."
   }
 }
@@ -44,7 +44,7 @@ variable "location" {
 # Tags Variables
 variable "tags" {
   description = "A mapping of tags to assign to the resources"
-  type        = map(string)
+  type = map(string)
   default = {
     environment = "demo"
     managed_by  = "terraform"
@@ -71,4 +71,11 @@ variable "application_name" {
   type        = string
   default     = "github-actions-oidc"
 }
-
+variable "azure_resource_group" {
+  description = "The name of the Azure resource group where the Azure AD application will be created"
+  type        = string
+}
+variable "azure_storage_account" {
+  description = " The name of the storage account to use for the Terraform state file"
+  type        = string
+}

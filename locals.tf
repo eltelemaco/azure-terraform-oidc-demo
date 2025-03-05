@@ -20,13 +20,13 @@ locals {
 
   # Region abbreviations
   region_short_names = {
-    eastus             = "eus"
-    eastus2            = "eus2"
-    centralus          = "cus"
-    westus             = "wus"
-    westus2            = "wus2"
-    northcentralus     = "ncus"
-    southcentralus     = "scus"
+    eastus         = "eus"
+    eastus2        = "eus2"
+    centralus      = "cus"
+    westus         = "wus"
+    westus2        = "wus2"
+    northcentralus = "ncus"
+    southcentralus = "scus"
   }
 
   # Get the short name for the current region
@@ -46,10 +46,12 @@ locals {
   application_name = lower(
     "${local.resource_type_prefixes.azure_ad_application}-${local.resource_name_prefix}-${var.project_name}-oidc"
   )
-
-  # Common tags applied to all resources
-  common_tags = merge(var.tags, {
-    environment = var.environment
-    project     = var.project_name
-  })
 }
+
+#   # Common tags applied to all resources
+#   common_tags = merge(var.tags, {
+#     environment = var.environment
+#     project     = var.project_name
+#   })
+# }
+

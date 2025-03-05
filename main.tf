@@ -1,9 +1,3 @@
-variable "azure_resource_group" {
-  default = ""
-}
-variable "azure_storage_account" {
-  default = ""
-}
 terraform {
   backend "azurerm" {
     resource_group_name  = var.azure_resource_group
@@ -23,7 +17,7 @@ resource "azurerm_resource_group" "rg" {
 # Azure AD Application for OIDC
 resource "azuread_application" "az_application" {
   display_name = "GitHub-OIDC-App"
-  owners       = [data.azuread_client_config.current.object_id]
+  owners = [data.azuread_client_config.current.object_id]
 }
 
 # Get current client configuration from Azure AD
