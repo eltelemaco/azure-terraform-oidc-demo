@@ -83,10 +83,10 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -no-color
+        run: terraform plan -out=tfplan -no-color
         working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
+        run: terraform apply -file=tfplan -no-color -auto-approve
         working-directory: ${{ env.WORKING_DIRECTORY }}
