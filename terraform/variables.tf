@@ -17,7 +17,7 @@ variable "environment" {
   type        = string
   default     = "dev"
   validation {
-    condition = contains(["dev", "test", "stage", "prod"], var.environment)
+    condition     = contains(["dev", "test", "stage", "prod"], var.environment)
     error_message = "The environment must be one of: dev, test, stage, prod."
   }
 }
@@ -36,9 +36,9 @@ variable "resource_group_name" {
 }
 
 variable "storage_account_name" {
-    description = "The name of the storage account to create"
-    type        = string
-    default     = "storageterraformoidc"
+  description = "The name of the storage account to create"
+  type        = string
+  default     = "storageterraformoidc"
 }
 variable "location" {
   description = "The Azure Region where the resource group should be created"
@@ -49,7 +49,7 @@ variable "location" {
 # Tags Variables
 variable "tags" {
   description = "A mapping of tags to assign to the resources"
-  type = map(string)
+  type        = map(string)
   default = {
     environment = "demo"
     managed_by  = "terraform"

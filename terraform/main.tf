@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "rg" {
 # Azure AD Application for OIDC
 resource "azuread_application" "az_application" {
   display_name = "GitHub-OIDC-App"
-  owners = [data.azuread_client_config.current.object_id]
+  owners       = [data.azuread_client_config.current.object_id]
 }
 
 # Get current client configuration from Azure AD
