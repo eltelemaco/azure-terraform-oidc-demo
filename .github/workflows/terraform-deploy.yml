@@ -9,6 +9,7 @@ on:
       - dev
 env:
   TF_LOG: INFO DEBUG ERROR
+  working-directory: '.'
 jobs:
   terraform:
     permissions:
@@ -56,17 +57,25 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          TF_VAR_storage_account_name: ${{ secrets.STORAGE_ACCOUNT_NAME }}
+          TF_VAR_resource_group_name: ${{ secrets.AZURE_RESOURCE_GROUP }}
 
       - name: Terraform Format
         run: terraform fmt -check
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Validate
         run: terraform validate
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
+        working-directory: ${{ env.WORKING_DIRECTORY }}
