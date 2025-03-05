@@ -2,7 +2,7 @@
 
 This repository demonstrates how to deploy Azure resources using Terraform and GitHub Actions with OpenID Connect (OIDC) authentication. OIDC provides a more secure way to authenticate with Azure without storing long-lived credentials in GitHub secrets.
 
-## Overview
+## Overview 
 
 This project sets up:
 - Azure Active Directory application and service principal
