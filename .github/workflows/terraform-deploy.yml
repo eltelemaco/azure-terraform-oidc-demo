@@ -9,7 +9,7 @@ on:
       - dev
 env:
   TF_LOG: TRACE, DEBUG, INFO, WARN, ERROR
-  working-directory: './terraform'
+  working-directory: './terraform/'
 jobs:
   terraform:
     permissions:
