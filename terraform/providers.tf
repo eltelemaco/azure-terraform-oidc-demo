@@ -8,7 +8,7 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "rg-oidc-demo"
+    resource_group_name  = "rg-terraform-oidc"
     storage_account_name = "storageterraformoidc"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
