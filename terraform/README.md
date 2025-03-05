@@ -14,7 +14,7 @@ This project sets up:
 - GitHub Actions workflow for automated deployment
 
 ## Prerequisites
-
+ 
 - Azure subscription 
 - GitHub account
 - Azure CLI installed locally
