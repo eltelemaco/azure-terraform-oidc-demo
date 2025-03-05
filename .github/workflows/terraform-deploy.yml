@@ -21,14 +21,6 @@ jobs:
     name: 'Terraform Deploy'
     runs-on: ubuntu-latest
 
-    env:
-      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
-      STORAGE_ACCOUNT_NAME: ${{ secrets.STORAGE_ACCOUNT_NAME }}
-      ARM_USE_OIDC: true
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -46,8 +38,15 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          STORAGE_ACCOUNT_NAME: ${{ secrets.STORAGE_ACCOUNT_NAME }}
+          ARM_USE_OIDC: true
         with:
-          terraform_version: '~1.4.0'
+          terraform_wrapper: false
 
       - name: Azure Login with OIDC
         uses: azure/login@v2.2.0
@@ -65,6 +64,7 @@ jobs:
                 az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
                 az configure --defaults group=${{ secrets.AZURE_RESOURCE_GROUP }} location=${{ secrets.AZURE_LOCATION }}
                 az account show --output table
+                get-childitem env: | sort-object name              
 
       - name: Terraform Init
         run: terraform init
@@ -76,9 +76,6 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check
         working-directory: ${{ env.WORKING_DIRECTORY }}
-        env:
-          TF_VAR_storage_account_name: ${{ secrets.STORAGE_ACCOUNT_NAME }}
-          TF_VAR_resource_group_name: ${{ secrets.AZURE_RESOURCE_GROUP }}
 
       - name: Terraform Validate
         run: terraform validate
@@ -88,9 +85,6 @@ jobs:
         id: plan
         run: terraform plan -out=tfplan -no-color
         working-directory: ${{ env.WORKING_DIRECTORY }}
-        env:
-          TF_VAR_storage_account_name: ${{ secrets.STORAGE_ACCOUNT_NAME }}
-          TF_VAR_resource_group_name: ${{ secrets.AZURE_RESOURCE_GROUP }}
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
