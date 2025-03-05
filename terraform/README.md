@@ -13,7 +13,7 @@ This project sets up:
 - Terraform configuration to deploy an Azure resource group
 - GitHub Actions workflow for automated deployment
 
-## Prerequisites
+## Prerequisites 
  
 - Azure subscription 
 - GitHub account
