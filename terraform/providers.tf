@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = var.azure_resource_group
-    storage_account_name = var.azure_storage_account
+    resource_group_name  = local.resource_group_name
+    storage_account_name = local.storage_account_name
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
   }

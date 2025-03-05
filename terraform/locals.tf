@@ -41,6 +41,9 @@ locals {
   resource_group_name = lower(
     "${local.resource_type_prefixes.resource_group}-${local.resource_name_prefix}-${var.project_name}"
   )
+  storage_account_name = lower(
+    "${local.resource_type_prefixes.storage_account}${substr(local.location_short, 0, 1)}${var.project_name}"
+  )
 
   # OIDC application name
   application_name = lower(
