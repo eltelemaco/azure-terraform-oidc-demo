@@ -15,7 +15,7 @@ module "virtual_network" {
 
   resource_group_name = local.resource_group_name
   location            = var.location
-  name                = local.resource_names.virtual_network_name
+  name                = var.resource_name_templates.virtual_network_name
   subnets             = var.virtual_network_subnets
   address_space       = var.virtual_network_address_space
   tags                = var.tags
