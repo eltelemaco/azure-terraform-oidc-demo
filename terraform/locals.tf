@@ -1,6 +1,15 @@
 # Azure naming convention locals
 # Following Microsoft's recommended naming convention: https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming
 
+variable "resource_name_environment" {
+  default = ""
+}
+variable "resource_name_workload" {
+  default = ""
+}
+variable "resource_name_sequence_start" {
+  default = ""
+}
 locals {
   # Resource type prefixes
   resource_type_prefixes = {
@@ -36,18 +45,19 @@ locals {
   # Format: <prefix>-<environment>-<region>-<name>-<instance>
   # Example: rg-dev-eus-oidc-001
   resource_name_prefix = "${var.environment}-${local.location_short}"
+  name_replacements = {
+    workload    = var.resource_name_workload
+    environment = var.resource_name_environment
+    location    = var.location
+    sequence    = format("%03d", var.resource_name_sequence_start)
+  }
 
-  # Resource-specific name generators
-  resource_group_name = lower(
-    "${local.resource_type_prefixes.resource_group}-${local.resource_name_prefix}-${var.project_name}"
-  )
-  storage_account_name = lower(
-    "${local.resource_type_prefixes.storage_account}${substr(local.location_short, 0, 1)}${var.project_name}"
-  )
-
-  # OIDC application name
-  application_name = lower(
-    "${local.resource_type_prefixes.azure_ad_application}-${local.resource_name_prefix}-${var.project_name}-oidc"
-  )
+  resource_names = { for key, value in var.resource_name_templates : key => templatestring(value, local.name_replacements) }
 }
+
+locals {
+  resource_group_name = var.resource_group_create ? module.azurerm_resource_group[0].name : var.resource_group_name
+}
+
+
 

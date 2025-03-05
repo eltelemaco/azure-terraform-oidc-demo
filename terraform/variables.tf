@@ -5,7 +5,10 @@ variable "subscription_id" {
   sensitive   = true
   default     = ""
 }
-
+variable "resource_group_create" {
+  type    = bool
+  default = false
+}
 variable "tenant_id" {
   description = "The Tenant ID which should be used"
   type        = string
@@ -79,3 +82,28 @@ variable "application_name" {
   default     = "github-actions-oidc"
 }
 
+variable "virtual_network_address_space" {
+  type = list(string)
+}
+
+variable "virtual_network_subnets" {
+  type = map(object({
+    name             = string
+    address_prefixes = list(string)
+  }))
+}
+
+variable "virtual_machine_sku" {
+  type = string
+}
+
+variable "resource_name_templates" {
+  type        = map(string)
+  description = "A map of resource names to use"
+  default = {
+    resource_group_name    = "rg-$${workload}-$${environment}-$${location}-$${sequence}"
+    virtual_network_name   = "vnet-$${workload}-$${environment}-$${location}-$${sequence}"
+    virtual_machine_name   = "vm-$${workload}-$${environment}-$${location}-$${sequence}"
+    network_interface_name = "nic-$${workload}-$${environment}-$${location}-$${sequence}"
+  }
+}
