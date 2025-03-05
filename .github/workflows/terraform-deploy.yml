@@ -8,7 +8,7 @@ on:
       - main
       - dev
 env:
-  TF_LOG: TRACE DEBUG INFO WARN ERROR
+  TF_LOG: TRACE, DEBUG, INFO, WARN, ERROR
   working-directory: './terraform'
 jobs:
   terraform:
