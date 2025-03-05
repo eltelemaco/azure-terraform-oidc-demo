@@ -2,19 +2,19 @@
 output "azure_subscription_id" {
   description = "The Azure Subscription ID"
   value       = var.subscription_id
-  sensitive = true
+  sensitive   = true
 }
 
 output "azure_tenant_id" {
   description = "The Azure Tenant ID"
   value       = var.tenant_id
-  sensitive = true
+  sensitive   = true
 }
 
 output "azure_client_id" {
   description = "The Azure Client ID (Application ID) for OIDC authentication"
   value       = azuread_application.az_application.client_id
-  sensitive = true
+  sensitive   = true
 }
 
 # Resource group outputs
